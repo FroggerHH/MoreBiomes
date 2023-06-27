@@ -156,17 +156,10 @@ internal class Plugin : BaseUnityPlugin
         Localizer.Load();
         harmony.PatchAll();
 
-        foreach (var asset in bundleDesert.LoadAllAssets<GameObject>())
+        foreach (Material? material in bundleDesert.LoadAllAssets<Material>())
         {
-            foreach (Renderer? renderer in asset.GetComponentsInChildren<Renderer>())
-            {
-                if (!renderer) continue;
-                foreach (Material? material in renderer.sharedMaterials)
-                {
-                    if (!material) continue;
-                    material.shader = Shader.Find(material.shader.name);
-                }
-            }
+            if (!material) continue;
+            material.shader = Shader.Find(material.shader.name);
         }
 
         SetupBiomeArrays();
