@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ItemManager;
+using LocalizationManager;
 using ServerSync;
 using UnityEngine;
 using static Heightmap;
@@ -20,6 +22,8 @@ internal class Plugin : BaseUnityPlugin
     internal static Harmony harmony = new(ModGUID);
 
     internal static Plugin _self;
+    internal static AssetBundle bundleDesert;
+    public const Biome desert = (Biome)(1024);
 
     #endregion
 
@@ -56,7 +60,7 @@ internal class Plugin : BaseUnityPlugin
 
     #region tools
 
-    static string ConfigFileName = "com.Frogger.MoreBiomes.cfg";
+    static string ConfigFileName = $"com.Frogger.{ModName}.cfg";
     DateTime LastConfigChange;
 
     public static readonly ConfigSync configSync = new(ModName)
@@ -94,16 +98,6 @@ internal class Plugin : BaseUnityPlugin
     #endregion
 
     #region configs
-
-    internal static ConfigEntry<Biome> MeadowsToConfig;
-    internal static ConfigEntry<Biome> SwampToConfig;
-    internal static ConfigEntry<Biome> MountainToConfig;
-    internal static ConfigEntry<Biome> BlackForestToConfig;
-    internal static ConfigEntry<Biome> PlainsToConfig;
-    internal static ConfigEntry<Biome> AshLandsToConfig;
-    internal static ConfigEntry<Biome> DeepNorthToConfig;
-    internal static ConfigEntry<Biome> OceanToConfig;
-    internal static ConfigEntry<Biome> MistlandsToConfig;
 
     #endregion
 
@@ -155,33 +149,44 @@ internal class Plugin : BaseUnityPlugin
         configSync.AddLockingConfigEntry(config("Main", "Lock Configuration", Toggle.On,
             "If on, the configuration is locked and can be changed by server admins only."));
 
-        MeadowsToConfig =
-            config("Main", "Change Meadows to", Biome.Meadows, string.Empty);
-        SwampToConfig =
-            config("Main", "Change Swamp to", Biome.Swamp, string.Empty);
-        MountainToConfig =
-            config("Main", "Change Mountain to", Biome.Mountain, string.Empty);
-        BlackForestToConfig =
-            config("Main", "Change BlackForest to", Biome.BlackForest, string.Empty);
-        PlainsToConfig =
-            config("Main", "Change Plains to", Biome.Plains, string.Empty);
-        AshLandsToConfig =
-            config("Main", "Change AshLands to", Biome.AshLands, string.Empty);
-        DeepNorthToConfig =
-            config("Main", "Change DeepNorth to", Biome.DeepNorth, string.Empty);
-        OceanToConfig =
-            config("Main", "Change Ocean to", Biome.Ocean, string.Empty);
-        MistlandsToConfig =
-            config("Main", "Change Mistlands to", Biome.Ocean, string.Empty);
-
-        s_biomeToIndex.Add((Biome)(1024), 10);
-        var indexToBiome = s_indexToBiome.ToList();
-        indexToBiome.Add((Biome)(1024));
-        s_indexToBiome = indexToBiome.ToArray();
-        s_tempBiomeWeights = new float[s_tempBiomeWeights.Length + 1];
-
         #endregion
 
+        bundleDesert = PrefabManager.RegisterAssetBundle("desert");
+
+        Localizer.Load();
         harmony.PatchAll();
+
+        foreach (var asset in bundleDesert.LoadAllAssets<GameObject>())
+        {
+            foreach (Renderer? renderer in asset.GetComponentsInChildren<Renderer>())
+            {
+                if (!renderer) continue;
+                foreach (Material? material in renderer.sharedMaterials)
+                {
+                    if (!material) continue;
+                    material.shader = Shader.Find(material.shader.name);
+                }
+            }
+        }
+
+        SetupBiomeArrays();
+    }
+
+    static readonly float[] biomeWeights = new float[30];
+
+    public static void SetupBiomeArrays()
+    {
+        var indexToBiome = s_indexToBiome.ToList();
+        indexToBiome.Add((Biome)(1024));
+        var indexToBiomeArray = indexToBiome.ToArray();
+        unsafe
+        {
+            fixed (void* ptr = &Heightmap.s_indexToBiome)
+                *(object*)ptr = indexToBiomeArray;
+            fixed (void* ptr = &Heightmap.s_tempBiomeWeights)
+                *(object*)ptr = biomeWeights;
+        }
+
+        s_biomeToIndex.Add(desert, 10);
     }
 }
