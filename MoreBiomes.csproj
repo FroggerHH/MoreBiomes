@@ -88,6 +88,7 @@
     <ItemGroup>
         <Compile Include="ItemManager\ItemManager.cs" />
         <Compile Include="LocalizationManager.cs" />
+        <Compile Include="Patch\Grass.cs" />
         <Compile Include="Patch\MoreBiomesPatch.cs" />
         <Compile Include="Patch\Vegetation.cs" />
         <Compile Include="Plugin.cs" />
