@@ -7,9 +7,11 @@ using System.IO;
 using System.Linq;
 using ItemManager;
 using LocalizationManager;
+using LocationManager;
 using ServerSync;
 using UnityEngine;
 using static Heightmap;
+using Location = LocationManager.Location;
 
 namespace MoreBiomes;
 
@@ -20,10 +22,9 @@ internal class Plugin : BaseUnityPlugin
 
     internal const string ModName = "MoreBiomes", ModVersion = "1.0.0", ModGUID = "com.Frogger." + ModName;
     internal static Harmony harmony = new(ModGUID);
-
     internal static Plugin _self;
     internal static AssetBundle bundleDesert;
-    public const Biome desert = (Biome)(1024);
+    internal static AssetBundle bundleJungle;
 
     #endregion
 
@@ -143,6 +144,8 @@ internal class Plugin : BaseUnityPlugin
     private void Awake()
     {
         _self = this;
+        SetupBiomeArrays();
+        harmony.PatchAll();
 
         #region Config
 
@@ -152,17 +155,85 @@ internal class Plugin : BaseUnityPlugin
         #endregion
 
         bundleDesert = PrefabManager.RegisterAssetBundle("desert");
+        bundleJungle = PrefabManager.RegisterAssetBundle("jungle");
+
+        LocationManager.Location Bones = new(bundleDesert, "Bones")
+        {
+            Biome = Const.Desert,
+            Rotation = Rotation.Random,
+            PreferCenter = true,
+            SpawnArea = BiomeArea.Everything,
+            SnapToWater = false,
+            MinimumDistanceFromGroup = 25,
+            Count = 150,
+            MapIcon = "bones",
+            ShowMapIcon = ShowIcon.Always,
+            GroupName = "DesertBones",
+            SpawnAltitude = new(10, 100000)
+        };
+        LocationManager.Location TestHill = new(bundleDesert, "TestHill")
+        {
+            Biome = Const.Desert,
+            Rotation = Rotation.Fixed,
+            PreferCenter = true,
+            SpawnArea = BiomeArea.Everything,
+            SnapToWater = false,
+            MinimumDistanceFromGroup = 25,
+            Count = 40,
+            MapIcon = "hill",
+            ShowMapIcon = ShowIcon.Always,
+            GroupName = "DesertTestHill",
+            SpawnAltitude = new(10, 100000)
+        };
+
+
+        LocationManager.Location ancienttemple = new(bundleJungle, "ancient-temple")
+        {
+            Biome = Const.Jungle,
+            Rotation = Rotation.Random,
+            PreferCenter = true,
+            SnapToWater = false,
+            MinimumDistanceFromGroup = 80,
+            Count = 25,
+            MapIcon = "ancient-temple",
+            ShowMapIcon = ShowIcon.Always,
+            GroupName = "ancient-temple",
+            SpawnAltitude = new(20, 100000)
+        };
+        LocationManager.Location Columns_ruins = new(bundleJungle, "Columns_ruins")
+        {
+            Biome = Const.Jungle,
+            Rotation = Rotation.Fixed,
+            PreferCenter = true,
+            SpawnArea = BiomeArea.Everything,
+            SnapToWater = false,
+            MinimumDistanceFromGroup = 60,
+            Count = 40,
+            MapIcon = "Columns_ruins",
+            ShowMapIcon = ShowIcon.Always,
+            GroupName = "Columns_ruins",
+            SpawnAltitude = new(10, 100000)
+        };
+        LocationManager.Location DesertRuins = new(bundleJungle, "DesertRuins")
+        {
+            Biome = Const.Desert,
+            Rotation = Rotation.Fixed,
+            PreferCenter = true,
+            SpawnArea = BiomeArea.Everything,
+            SnapToWater = false,
+            MinimumDistanceFromGroup = 60,
+            Count = 40,
+            MapIcon = "DesertRuins",
+            ShowMapIcon = ShowIcon.Always,
+            GroupName = "DesertRuins",
+            SpawnAltitude = new(10, 100000)
+        };
+
+        PrefabManager.RegisterPrefab(bundleJungle, "TreasureChest_DesertRuins");
+        PrefabManager.RegisterPrefab(bundleJungle, "TreasureChest_ancient-temple");
+        PrefabManager.RegisterPrefab(bundleJungle, "column_ruins");
 
         Localizer.Load();
-        harmony.PatchAll();
-
-        foreach (Material? material in bundleDesert.LoadAllAssets<Material>())
-        {
-            if (!material) continue;
-            material.shader = Shader.Find(material.shader.name);
-        }
-
-        SetupBiomeArrays();
     }
 
     static readonly float[] biomeWeights = new float[30];
@@ -170,7 +241,8 @@ internal class Plugin : BaseUnityPlugin
     public static void SetupBiomeArrays()
     {
         var indexToBiome = s_indexToBiome.ToList();
-        indexToBiome.Add((Biome)(1024));
+        indexToBiome.Add(Const.Desert);
+        indexToBiome.Add(Const.Jungle);
         var indexToBiomeArray = indexToBiome.ToArray();
         unsafe
         {
@@ -180,6 +252,7 @@ internal class Plugin : BaseUnityPlugin
                 *(object*)ptr = biomeWeights;
         }
 
-        s_biomeToIndex.Add(desert, 10);
+        s_biomeToIndex.Add(Const.Desert, 10);
+        s_biomeToIndex.Add(Const.Jungle, 10);
     }
 }

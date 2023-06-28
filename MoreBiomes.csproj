@@ -50,6 +50,9 @@
         <Reference Include="BepInEx">
           <HintPath>..\..\..\Steam\steamapps\common\Valheim\BepInEx\core\BepInEx.dll</HintPath>
         </Reference>
+        <Reference Include="LocationManager">
+          <HintPath>..\Utils\LocationManager.dll</HintPath>
+        </Reference>
         <Reference Include="ServerSync">
           <HintPath>..\Utils\ServerSync.dll</HintPath>
         </Reference>
@@ -78,18 +81,36 @@
         <Reference Include="UnityEngine.ParticleSystemModule">
           <HintPath>..\..\Unity\Unity Hub\versions\2020.3.36f1\Editor\Data\Managed\UnityEngine\UnityEngine.ParticleSystemModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.TextCoreModule">
+          <HintPath>..\..\Unity\Unity Hub\versions\2020.3.36f1\Editor\Data\Managed\UnityEngine\UnityEngine.TextCoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+          <HintPath>..\..\Unity\Unity Hub\versions\2020.3.36f1\Editor\Data\Managed\UnityEngine\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.UI">
           <HintPath>..\..\..\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+          <HintPath>..\..\Unity\Unity Hub\versions\2020.3.36f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.VirtualTexturingModule">
+          <HintPath>..\..\Unity\Unity Hub\versions\2020.3.36f1\Editor\Data\Managed\UnityEngine\UnityEngine.VirtualTexturingModule.dll</HintPath>
         </Reference>
         <Reference Include="YamlDotNet, Version=13.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
           <HintPath>packages\YamlDotNet.13.1.1\lib\net47\YamlDotNet.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="ItemManager\ItemManager.cs" />
+        <Compile Include="Const.cs" />
         <Compile Include="LocalizationManager.cs" />
+        <Compile Include="Managers\ItemManager.cs" />
+        <Compile Include="Patch\ChestPatch.cs" />
+        <Compile Include="Patch\DestructiblePatch.cs" />
         <Compile Include="Patch\Grass.cs" />
+        <Compile Include="Patch\Materials.cs" />
         <Compile Include="Patch\MoreBiomesPatch.cs" />
+        <Compile Include="Patch\PickablePatch.cs" />
+        <Compile Include="Patch\SpawnerPatch.cs" />
         <Compile Include="Patch\Vegetation.cs" />
         <Compile Include="Plugin.cs" />
         <Compile Include="ConfigurationManagerAttributes.cs" />
@@ -104,6 +125,9 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
       <EmbeddedResource Include="assets\desert">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <EmbeddedResource Include="assets\jungle">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
       <Content Include="Build\MoreBiomes.dll" />
