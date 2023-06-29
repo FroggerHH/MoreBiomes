@@ -24,8 +24,7 @@ public class ChestPatch
                 m_item = ZNetScene.instance.GetPrefab("Feathers"),
                 m_stackMin = 2,
                 m_stackMax = 25,
-                m_weight = 1,
-                m_dontScale = false
+                m_weight = 1
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -33,8 +32,7 @@ public class ChestPatch
                 m_item = ZNetScene.instance.GetPrefab("ArrowBronze"),
                 m_stackMin = 1,
                 m_stackMax = 5,
-                m_weight = 1,
-                m_dontScale = false
+                m_weight = 1
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -42,8 +40,7 @@ public class ChestPatch
                 m_item = ZNetScene.instance.GetPrefab("ArrowFire"),
                 m_stackMin = 4,
                 m_stackMax = 15,
-                m_weight = 1,
-                m_dontScale = false
+                m_weight = 1
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -51,8 +48,7 @@ public class ChestPatch
                 m_item = ZNetScene.instance.GetPrefab("Ruby"),
                 m_stackMin = 1,
                 m_stackMax = 2,
-                m_weight = 1,
-                m_dontScale = false
+                m_weight = 1
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -61,7 +57,6 @@ public class ChestPatch
                 m_stackMin = 0,
                 m_stackMax = 100,
                 m_weight = 1,
-                m_dontScale = false
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -70,7 +65,6 @@ public class ChestPatch
                 m_stackMin = 1,
                 m_stackMax = 15,
                 m_weight = 1,
-                m_dontScale = false
             });
 
         if (Random.Range(0, 100) < 20)
@@ -82,7 +76,6 @@ public class ChestPatch
                     m_stackMin = 1,
                     m_stackMax = 1,
                     m_weight = 1,
-                    m_dontScale = false
                 });
         }
 
@@ -100,7 +93,6 @@ public class ChestPatch
                 m_stackMin = 2,
                 m_stackMax = 25,
                 m_weight = 1,
-                m_dontScale = false
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -109,7 +101,6 @@ public class ChestPatch
                 m_stackMin = 1,
                 m_stackMax = 5,
                 m_weight = 1,
-                m_dontScale = false
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -118,7 +109,6 @@ public class ChestPatch
                 m_stackMin = 4,
                 m_stackMax = 15,
                 m_weight = 1,
-                m_dontScale = false
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -127,7 +117,6 @@ public class ChestPatch
                 m_stackMin = 1,
                 m_stackMax = 2,
                 m_weight = 1,
-                m_dontScale = false
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -136,7 +125,6 @@ public class ChestPatch
                 m_stackMin = 0,
                 m_stackMax = 100,
                 m_weight = 1,
-                m_dontScale = false
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -145,7 +133,6 @@ public class ChestPatch
                 m_stackMin = 1,
                 m_stackMax = 15,
                 m_weight = 1,
-                m_dontScale = false
             });
         TreasureChest_DesertRuins.m_defaultItems.m_drops.Add(
             new DropTable.DropData()
@@ -154,7 +141,6 @@ public class ChestPatch
                 m_stackMin = 0,
                 m_stackMax = 4,
                 m_weight = 1,
-                m_dontScale = false
             });
 
         if (Random.Range(0, 100) < 20)
@@ -166,7 +152,6 @@ public class ChestPatch
                     m_stackMin = 1,
                     m_stackMax = 1,
                     m_weight = 1,
-                    m_dontScale = false
                 });
         }
 
