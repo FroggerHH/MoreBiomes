@@ -138,34 +138,42 @@ public class Grass
         #region Jungle
 
         AddGrass("instanced_Jungle_grass big", instanced_heathgrass)
-            .SetBiome(Jungle);
+            .SetBiome(Jungle)
+            .SetMaxScale(2.5f)
+            .SetMinAlt(2f);
         AddGrass("instanced_Jungle_grass", instanced_heathgrass)
-            .SetBiome(Jungle);
+            .SetBiome(Jungle)
+            .SetMaxScale(1.5f)
+            .SetMinAlt(1f);
         AddGrass("instanced_Jungle_grass_short", instanced_heathgrass)
-            .SetBiome(Jungle);
+            .SetBiome(Jungle)
+            .SetMaxScale(1)
+            .SetMinAlt(0.5f);
         AddGrass("instanced_seaweed", instanced_vass)
-            .SetMinAlt(-10)
+            .SetMinAlt(-1)
             .SetMaxAlt(0)
             .SetMinScale(1)
             .SetMaxScale(3)
             .SetBiome(Jungle);
         AddGrass("instanced_WaterLilyLeaf", instanced_vass)
-            .SetMinAlt(-10)
-            .SetMaxAlt(0)
+            .SetMinAlt(-7)
+            .SetMaxAlt(-1)
             .SetMinScale(1)
             .SetMaxScale(3)
-            .SetBiome(Jungle);
+            .SetBiome(Jungle)
+            .SetSnapToWater(true);
         AddGrass("instanced_WaterLilyFlower", instanced_vass)
-            .SetMinAlt(-5)
-            .SetMaxAlt(0)
-            .SetMinScale(0.3f)
-            .SetMaxScale(1.5f)
-            .SetBiome(Jungle);
-        //AddGeran();
-        // Add_JungleFern();
-        // Add_JungleFern_1();
-        // Add_JungleFern_2();
-        // Add_JungleFern_3();
+            .SetMinAlt(-7)
+            .SetMaxAlt(-1)
+            .SetMinScale(1f)
+            .SetMaxScale(1.7f)
+            .SetBiome(Jungle)
+            .SetSnapToWater(true);
+        AddGeran();
+        Add_JungleFern();
+        Add_JungleFern_1();
+        Add_JungleFern_2();
+        Add_JungleFern_3();
 
         #endregion
     }
@@ -173,40 +181,40 @@ public class Grass
     private static void AddGeran()
     {
         AddGrass("instanced_JungleGeran", instanced_vass)
-            .SetMinAlt(0)
+            .SetMinAlt(1.3f)
             .SetMaxAlt(1000)
             .SetMinScale(0.2f)
-            .SetMaxScale(1.8f)
+            .SetMaxScale(1f)
             .SetBiome(Jungle);
     }
 
     private static void Add_JungleFern_3()
     {
         AddGrass("instanced_JungleFern 3", instanced_vass)
-            .SetMinAlt(1)
+            .SetMinAlt(3)
             .SetMaxAlt(10000)
             .SetMinScale(0.2f)
-            .SetMaxScale(1)
+            .SetMaxScale(1.5f)
             .SetBiome(Jungle);
     }
 
     private static void Add_JungleFern_2()
     {
         AddGrass("instanced_JungleFern 2", instanced_vass)
-            .SetMinAlt(1)
+            .SetMinAlt(2)
             .SetMaxAlt(10000)
             .SetMinScale(0.2f)
-            .SetMaxScale(1)
+            .SetMaxScale(1.5f)
             .SetBiome(Jungle);
     }
 
     private static void Add_JungleFern_1()
     {
         AddGrass("instanced_JungleFern 1", instanced_vass)
-            .SetMinAlt(1)
+            .SetMinAlt(5)
             .SetMaxAlt(10000)
             .SetMinScale(0.2f)
-            .SetMaxScale(1)
+            .SetMaxScale(0.9f)
             .SetBiome(Jungle);
     }
 
@@ -216,7 +224,7 @@ public class Grass
             .SetMinAlt(1)
             .SetMaxAlt(10000)
             .SetMinScale(0.2f)
-            .SetMaxScale(1)
+            .SetMaxScale(1.5f)
             .SetBiome(Jungle);
     }
 

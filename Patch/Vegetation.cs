@@ -172,7 +172,7 @@ public class Vegetation
             m_maxVegetation = stubbe.m_maxVegetation * 1.2f,
             m_max = stubbe.m_max * 1.2f,
             m_min = stubbe.m_min * 1.2f,
-            m_blockCheck = stubbe.m_blockCheck,
+            m_blockCheck = true,
             m_snapToStaticSolid = stubbe.m_snapToStaticSolid,
             m_chanceToUseGroundTilt = stubbe.m_chanceToUseGroundTilt,
             m_minAltitude = 2,

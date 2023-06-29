@@ -45,5 +45,10 @@ public static class ClutterExtention
             clutter.m_biome = value;
             return this;
         }
+        public MBClutter SetSnapToWater(bool value)
+        {
+            clutter.m_snapToWater = value;
+            return this;
+        }
     }
 }

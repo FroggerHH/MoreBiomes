@@ -38,7 +38,7 @@ internal static class MoreBiomes
             return;
         }
 
-        if (noise > 0.4f && magnitude > 6000.0 + num && magnitude < 8000.0)
+        if (noise > 0.4f && magnitude > 6000f + num && magnitude < 8000f)
         {
             __result = Const.Jungle;
             return;

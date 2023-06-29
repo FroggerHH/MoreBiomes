@@ -52,9 +52,14 @@ public class SpawnerPatch
     static void Postfix(SpawnArea __instance)
     {
         if (__instance.m_prefabs.Count > 0) return;
-        if (__instance.name.StartsWith("BonePileSpawner"))  
+        if (__instance.name.StartsWith("BonePileSpawner"))
         {
-            __instance.m_prefabs = ZNetScene.instance.GetPrefab("BonePileSpawner").GetComponent<SpawnArea>().m_prefabs;
+            __instance.m_prefabs.Add(new()
+            {
+                m_prefab = ZNetScene.instance.GetPrefab("Skeleton"),
+                m_minLevel = 1,
+                m_maxLevel = 3
+            });
         }
     }
 }
