@@ -35,7 +35,7 @@ internal class Plugin : BaseUnityPlugin
         _self.Logger.LogInfo(msg);
     }
 
-    public static void DebugError(object msg, bool showWriteToDev)
+    public static void DebugError(object msg, bool showWriteToDev = true)
     {
         if (showWriteToDev)
         {

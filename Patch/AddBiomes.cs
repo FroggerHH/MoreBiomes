@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,15 +9,44 @@ using static MoreBiomes.Plugin;
 using static Heightmap;
 using static ZoneSystem;
 using static ZoneSystem.ZoneLocation;
+using Random = UnityEngine.Random;
 
 namespace MoreBiomes;
 
 [HarmonyPatch]
-internal static class MoreBiomes
+internal static class AddBiomes
 {
     private static bool isInitingStartTemple = false;
     private static Color32 desertColor = new Color32((byte)0, (byte)0, (byte)0, byte.MaxValue);
     private static Color32 jungleColor = new Color32(0, 62, 255, 197);
+
+
+    static float n1_x = 0.3f;
+    static float n1_y = 0.1f;
+    static float n2_x = 0.6f; //0.4f;
+    static float n2_y = 0.6f; //0.4f;
+    static float n3_x = 0.4f;
+    static float n3_y = 0.4f;
+    static float n1 = 0.0001f; //0.01f;
+    static float n2 = 0.005f; //0.01f;
+    static float n3 = 0.0005f;
+    static float ceil = 120;
+
+
+    private static void _RegenerateDesert()
+    {
+        foreach (Heightmap heightmap in Heightmap.s_heightmaps)
+        {
+            ZLog.Log((object)("Force generating hmap " + heightmap.transform.position.ToString()));
+            heightmap.Regenerate();
+            var comp = heightmap.GetAndCreateTerrainCompiler();
+            comp.m_modifiedHeight = new bool[comp.m_modifiedHeight.Length];
+            comp.m_levelDelta = new float[comp.m_levelDelta.Length];
+            comp.m_smoothDelta = new float[comp.m_smoothDelta.Length];
+            comp.m_modifiedPaint = new bool[comp.m_modifiedPaint.Length];
+            comp.m_paintMask = new Color[comp.m_paintMask.Length];
+        }
+    }
 
     [HarmonyPatch(typeof(WorldGenerator), nameof(WorldGenerator.GetBiome), typeof(float), typeof(float)),
      HarmonyPostfix]
@@ -27,15 +57,22 @@ internal static class MoreBiomes
         float magnitude = new Vector2(wx, wy).magnitude;
         float num = __instance.WorldAngle(wx, wy) * 90f;
 
-        var x = (float)((__instance.m_offset1 + wx) * (1f / 1000f));
-        var y = (float)((__instance.m_offset1 + wy) * (1f / 1000f));
+        var x = (__instance.m_offset1 + wx) * (1f / 1000f);
+        var y = (__instance.m_offset1 + wy) * (1f / 1000f);
         var noise = Mathf.PerlinNoise(x, y);
+        var noise2 = Mathf.PerlinNoise(x * Random.Range(0f, 1f), y * Random.Range(0f, 1f));
 
 
         if (noise > 0.4 && magnitude > 4000f + num && magnitude < 6000f) //3000 8000 = Plains
         {
+            //if (magnitude > 5500f && magnitude < 6000f)
+            //{
+            //if (noise2 > 0.2f)
+            //{
             __result = Const.Desert;
             return;
+            //}
+            //}
         }
 
         if (noise > 0.4f && magnitude > 6000f + num && magnitude < 8000f)
@@ -83,10 +120,12 @@ internal static class MoreBiomes
     public static void GetMaskColor(Minimap __instance, float wx, float wy, float height, Biome biome,
         ref Color __result)
     {
-        if (biome is Const.Desert || biome is Const.Jungle)
-        {
-            __result = WorldGenerator.GetForestFactor(new Vector3(wx, 0.0f, wy)) >= 0.800000011920929 ? __instance.noForest : __instance.forest;
-        }
+        // if (biome is Const.Desert || biome is Const.Jungle)
+        // {
+        //     __result = WorldGenerator.GetForestFactor(new Vector3(wx, 0.0f, wy)) >= 0.800000011920929
+        //         ? __instance.noForest
+        //         : __instance.forest;
+        // }
     }
 
     [HarmonyPatch(typeof(EnvMan), nameof(EnvMan.Awake)), HarmonyPrefix]
@@ -141,16 +180,18 @@ internal static class MoreBiomes
         float num1 = Mathf.PerlinNoise(wx * 0.01f, wy * 0.01f) * Mathf.PerlinNoise(wx * 0.02f, wy * 0.02f);
         float h = baseHeight + num1 +
                   Mathf.PerlinNoise(wx * 0.05f, wy * 0.05f) *
-                  Mathf.PerlinNoise(wx * 0.1f, wy * 0.1f) *
                   num1 * 0.5f * 0.1f;
         float num2 = 0.15f;
         float num3 = h - num2;
         float num4 = Mathf.Clamp01(baseHeight / 0.4000000059604645f);
         if ((double)num3 > 0.0)
             h -= num3 * (1f - num4 * 0.75f);
-        return worldGenerator.AddRivers(wx1, wy1, h) +
-               Mathf.PerlinNoise(wx * 0.1f, wy * 0.1f) * 0.01f +
-               Mathf.PerlinNoise(wx * 0.4f, wy * 0.4f) * (3f / 1000f);
+        var desertHeight = worldGenerator.AddRivers(wx1, wy1, h) +
+                           Mathf.PerlinNoise(wx * n1_x, wy * n1_y) * n1 +
+                           Mathf.PerlinNoise(wx * n2_x, wy * n2_y) * n2;
+        desertHeight = Mathf.Lerp(desertHeight + Mathf.PerlinNoise(wx * n3_x, wy * n3_y) * n3,
+            Mathf.Ceil(desertHeight * ceil) / ceil, num4);
+        return desertHeight;
     }
 
     public static float GetJungleHeight(WorldGenerator worldGenerator, float wx, float wy)

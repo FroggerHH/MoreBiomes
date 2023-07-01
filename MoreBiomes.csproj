@@ -60,6 +60,9 @@
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
+        <Reference Include="Unity.TextMeshPro">
+          <HintPath>..\..\..\Steam\steamapps\common\Valheim\valheim_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine">
           <HintPath>..\..\Unity\Unity Hub\versions\2020.3.36f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
         </Reference>
@@ -108,8 +111,9 @@
         <Compile Include="Patch\ChestPatch.cs" />
         <Compile Include="Patch\DestructiblePatch.cs" />
         <Compile Include="Patch\Grass.cs" />
+        <Compile Include="Patch\Map.cs" />
         <Compile Include="Patch\Materials.cs" />
-        <Compile Include="Patch\MoreBiomesPatch.cs" />
+        <Compile Include="Patch\AddBiomes.cs" />
         <Compile Include="Patch\PickablePatch.cs" />
         <Compile Include="Patch\SpawnerPatch.cs" />
         <Compile Include="Patch\Vegetation.cs" />
