@@ -54,25 +54,25 @@ internal static class AddBiomes
     {
         if (__instance.m_world.m_menu) return;
         if (isInitingStartTemple) return;
+        float baseHeight = __instance.GetBaseHeight(wx, wy, false);
+        if (baseHeight <= 0.02)
+        {
+            __result = Heightmap.Biome.Ocean;
+            return;
+        }
+
         float magnitude = new Vector2(wx, wy).magnitude;
         float num = __instance.WorldAngle(wx, wy) * 90f;
 
         var x = (__instance.m_offset1 + wx) * (1f / 1000f);
         var y = (__instance.m_offset1 + wy) * (1f / 1000f);
         var noise = Mathf.PerlinNoise(x, y);
-        var noise2 = Mathf.PerlinNoise(x * Random.Range(0f, 1f), y * Random.Range(0f, 1f));
 
 
         if (noise > 0.4 && magnitude > 4000f + num && magnitude < 6000f) //3000 8000 = Plains
         {
-            //if (magnitude > 5500f && magnitude < 6000f)
-            //{
-            //if (noise2 > 0.2f)
-            //{
             __result = Const.Desert;
             return;
-            //}
-            //}
         }
 
         if (noise > 0.4f && magnitude > 6000f + num && magnitude < 8000f)
@@ -177,18 +177,22 @@ internal static class AddBiomes
         float baseHeight = worldGenerator.GetBaseHeight(wx, wy, false);
         wx += 100000f + worldGenerator.m_offset3;
         wy += 100000f + worldGenerator.m_offset3;
-        float num1 = Mathf.PerlinNoise(wx * 0.01f, wy * 0.01f) * Mathf.PerlinNoise(wx * 0.02f, wy * 0.02f);
-        float h = baseHeight + num1 +
-                  Mathf.PerlinNoise(wx * 0.05f, wy * 0.05f) *
-                  num1 * 0.5f * 0.1f;
+        float num1 = Mathf.PerlinNoise(wx * 0.01f, wy * 0.01f)
+                     * Mathf.PerlinNoise(wx * 0.02f, wy * 0.02f);
+        float h = baseHeight +
+                  (num1 + Mathf.PerlinNoise(wx * 0.05f, wy * 0.05f) *
+                      Mathf.PerlinNoise(wx * 0.1f, wy * 0.1f) * num1 *
+                      0.5f) * 0.1f;
         float num2 = 0.15f;
         float num3 = h - num2;
-        float num4 = Mathf.Clamp01(baseHeight / 0.4000000059604645f);
-        if ((double)num3 > 0.0)
-            h -= num3 * (1f - num4 * 0.75f);
+        float num4 = Mathf.Clamp01((float)(baseHeight / 0.4000000059604645));
+        if (num3 > 0)
+            h -= num3 * (1 - num4) * 0.75f;
+
         var desertHeight = worldGenerator.AddRivers(wx1, wy1, h) +
                            Mathf.PerlinNoise(wx * n1_x, wy * n1_y) * n1 +
                            Mathf.PerlinNoise(wx * n2_x, wy * n2_y) * n2;
+
         desertHeight = Mathf.Lerp(desertHeight + Mathf.PerlinNoise(wx * n3_x, wy * n3_y) * n3,
             Mathf.Ceil(desertHeight * ceil) / ceil, num4);
         return desertHeight;
@@ -198,19 +202,19 @@ internal static class AddBiomes
     {
         float wx1 = wx;
         float wy1 = wy;
-        double baseHeight = (double)worldGenerator.GetBaseHeight(wx, wy, false);
+        float baseHeight = worldGenerator.GetBaseHeight(wx, wy, false);
         wx += 100000f + worldGenerator.m_offset3;
         wy += 100000f + worldGenerator.m_offset3;
 
         float num1 = Mathf.PerlinNoise(wx * 0.01f, wy * 0.01f) * Mathf.PerlinNoise(wx * 0.02f, wy * 0.02f);
-        float h = (float)baseHeight + (num1 + (float)((double)Mathf.PerlinNoise(wx * 0.05f, wy * 0.05f) *
-                                                      (double)Mathf.PerlinNoise(wx * 0.1f, wy * 0.1f) * (double)num1 *
-                                                      0.5)) * 0.1f;
+        float h = baseHeight + (num1 + (Mathf.PerlinNoise(wx * 0.05f, wy * 0.05f) *
+                                        Mathf.PerlinNoise(wx * 0.1f, wy * 0.1f) * num1 *
+                                        0.5f)) * 0.1f;
         float num2 = 0.15f;
         float num3 = h - num2;
         float num4 = Mathf.Clamp01((float)(baseHeight / 0.4000000059604645));
-        if ((double)num3 > 0.0)
-            h -= (float)((double)num3 * (1.0 - (double)num4) * 0.75);
+        if (num3 > 0)
+            h -= num3 * (1 - num4) * 0.75f;
 
 
         return worldGenerator.AddRivers(wx1, wy1, h) +

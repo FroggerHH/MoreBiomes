@@ -140,7 +140,6 @@ internal class Plugin : BaseUnityPlugin
 
     #endregion
 
-    // static List<Biome> indexToBiome = new();
     private void Awake()
     {
         _self = this;
@@ -171,18 +170,17 @@ internal class Plugin : BaseUnityPlugin
             GroupName = "DesertBones",
             SpawnAltitude = new(10, 100000)
         };
-        LocationManager.Location TestHill = new(bundleDesert, "TestHill")
+        LocationManager.Location Oasis = new(bundleDesert, "Oasis")
         {
             Biome = Const.Desert,
             Rotation = Rotation.Fixed,
             PreferCenter = true,
-            SpawnArea = BiomeArea.Everything,
             SnapToWater = false,
-            MinimumDistanceFromGroup = 25,
-            Count = 40,
-            MapIcon = "hill",
+            MinimumDistanceFromGroup = 200,
+            Count = 25,
+            MapIcon = "Oasis",
             ShowMapIcon = ShowIcon.Always,
-            GroupName = "DesertTestHill",
+            GroupName = "DesertOasis",
             SpawnAltitude = new(10, 100000)
         };
 

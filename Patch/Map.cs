@@ -31,10 +31,15 @@ public class Map
         var x = (WorldGenerator.instance.m_offset1 + wx) * (1f / 1000f);
         var y = (WorldGenerator.instance.m_offset1 + wy) * (1f / 1000f);
         var noise = Mathf.PerlinNoise(x, y);
+        float baseHeight = WorldGenerator.instance.GetBaseHeight(wx, wy, false);
+        float height = WorldGenerator.instance.GetHeight(wx, wy);
 
         var sb = new StringBuilder();
         sb.AppendLine(Localization.instance.Localize("$biome_" + biome.ToString().ToLower()));
-        sb.AppendLine($"Noise value is: {noise}");
+        sb.AppendLine($"Noise is: {noise}");
+        sb.AppendLine($"BaseHeight is: {baseHeight}");
+        sb.AppendLine($"Height is: {height}");
+        sb.AppendLine($"Altitude is: {worldPoint.y - ZoneSystem.instance.m_waterLevel}");
         __instance.m_biomeNameLarge.text = sb.ToString();
     }
 }

@@ -10,11 +10,12 @@ using static MoreBiomes.Plugin;
 
 namespace MoreBiomes;
 
-[HarmonyPatch(typeof(ZNetScene), nameof(ZNetScene.Awake)), HarmonyWrapSafe]
+[HarmonyPatch, HarmonyWrapSafe]
 public class DestructiblePatch
 {
+    [HarmonyPatch(typeof(ZNetScene), nameof(ZNetScene.Awake)), HarmonyWrapSafe]
     [HarmonyPostfix]
-    static void Postfix(ZNetScene __instance)
+    static void Patch(ZNetScene __instance)
     {
         var column_ruins = __instance.GetPrefab("column_ruins").GetComponent<Destructible>();
         Debug("column_ruins");
@@ -22,11 +23,7 @@ public class DestructiblePatch
         Debug("column_ruins_main");
         var column_ruins_footing = __instance.GetPrefab("column_ruins_footing").GetComponent<Destructible>();
         Debug("column_ruins_footing");
-        var TreasureChest_ancienttemple = __instance.GetPrefab("TreasureChest_ancient-temple").GetComponent<Destructible>();
-        Debug("TreasureChest_ancienttemple");
-        var TreasureChest_DesertRuin = __instance.GetPrefab("TreasureChest_DesertRuin").GetComponent<Destructible>();
-        Debug("TreasureChest_DesertRuin");
-        
+
         // List<Piece.Requirement> requirements_10Stone = new();
         // requirements_10Stone.Add(new()
         // {

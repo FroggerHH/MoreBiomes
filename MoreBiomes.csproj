@@ -106,10 +106,12 @@
     <ItemGroup>
         <Compile Include="ClutterExtention.cs" />
         <Compile Include="Const.cs" />
+        <Compile Include="GOext.cs" />
         <Compile Include="LocalizationManager.cs" />
         <Compile Include="Managers\ItemManager.cs" />
         <Compile Include="Patch\ChestPatch.cs" />
         <Compile Include="Patch\DestructiblePatch.cs" />
+        <Compile Include="Patch\Dig.cs" />
         <Compile Include="Patch\Grass.cs" />
         <Compile Include="Patch\Map.cs" />
         <Compile Include="Patch\Materials.cs" />

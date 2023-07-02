@@ -33,6 +33,7 @@ public class Materials
             FixPickable(asset);
             FixContainer(asset);
             FixFireplace(asset);
+            FixTerrainMod(asset);
         }
     }
 
@@ -108,6 +109,21 @@ public class Materials
         if (piece != null)
         {
             FixEffect(piece.m_placeEffect, asset.name);
+        }
+    }
+
+    private static void FixTerrainMod(GameObject asset)
+    {
+        var terrainOp = asset.GetComponent<TerrainOp>();
+        var TerrainModifier = asset.GetComponent<TerrainModifier>();
+        if (terrainOp != null)
+        {
+            FixEffect(terrainOp.m_onPlacedEffect, asset.name);
+        }
+
+        if (TerrainModifier != null)
+        {
+            FixEffect(TerrainModifier.m_onPlacedEffect, asset.name);
         }
     }
 
