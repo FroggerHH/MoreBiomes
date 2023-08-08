@@ -165,8 +165,8 @@ internal class Plugin : BaseUnityPlugin
             SnapToWater = false,
             MinimumDistanceFromGroup = 25,
             Count = 150,
-            MapIcon = "bones",
-            ShowMapIcon = ShowIcon.Always,
+           // MapIcon = "bones",
+           // ShowMapIcon = ShowIcon.Always,
             GroupName = "DesertBones",
             SpawnAltitude = new(10, 100000)
         };
@@ -178,8 +178,8 @@ internal class Plugin : BaseUnityPlugin
             SnapToWater = false,
             MinimumDistanceFromGroup = 200,
             Count = 25,
-            MapIcon = "Oasis",
-            ShowMapIcon = ShowIcon.Always,
+            //MapIcon = "Oasis",
+            //ShowMapIcon = ShowIcon.Always,
             GroupName = "DesertOasis",
             SpawnAltitude = new(10, 100000)
         };
@@ -193,8 +193,8 @@ internal class Plugin : BaseUnityPlugin
             SnapToWater = false,
             MinimumDistanceFromGroup = 80,
             Count = 25,
-            MapIcon = "ancient-temple",
-            ShowMapIcon = ShowIcon.Always,
+            //MapIcon = "ancient-temple",
+            //ShowMapIcon = ShowIcon.Always,
             GroupName = "ancient-temple",
             SpawnAltitude = new(20, 100000)
         };
@@ -207,8 +207,8 @@ internal class Plugin : BaseUnityPlugin
             SnapToWater = false,
             MinimumDistanceFromGroup = 60,
             Count = 40,
-            MapIcon = "Columns_ruins",
-            ShowMapIcon = ShowIcon.Always,
+            //MapIcon = "Columns_ruins",
+            //ShowMapIcon = ShowIcon.Always,
             GroupName = "Columns_ruins",
             SpawnAltitude = new(10, 100000)
         };
@@ -221,8 +221,8 @@ internal class Plugin : BaseUnityPlugin
             SnapToWater = false,
             MinimumDistanceFromGroup = 60,
             Count = 40,
-            MapIcon = "DesertRuins",
-            ShowMapIcon = ShowIcon.Always,
+            //MapIcon = "DesertRuins",
+           // ShowMapIcon = ShowIcon.Always,
             GroupName = "DesertRuins",
             SpawnAltitude = new(10, 100000)
         };

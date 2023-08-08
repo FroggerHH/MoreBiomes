@@ -17,12 +17,12 @@ public class DestructiblePatch
     [HarmonyPostfix]
     static void Patch(ZNetScene __instance)
     {
-        var column_ruins = __instance.GetPrefab("column_ruins").GetComponent<Destructible>();
-        Debug("column_ruins");
-        var column_ruins_main = __instance.GetPrefab("column_ruins_main").GetComponent<Destructible>();
-        Debug("column_ruins_main");
-        var column_ruins_footing = __instance.GetPrefab("column_ruins_footing").GetComponent<Destructible>();
-        Debug("column_ruins_footing");
+        // var column_ruins = __instance.GetPrefab("column_ruins")?.GetComponent<Destructible>();
+        // Debug("column_ruins");
+        // var column_ruins_main = __instance.GetPrefab("column_ruins_main")?.GetComponent<Destructible>();
+        // Debug("column_ruins_main");
+        // var column_ruins_footing = __instance.GetPrefab("column_ruins_footing")?.GetComponent<Destructible>();
+        // Debug("column_ruins_footing");
 
         // List<Piece.Requirement> requirements_10Stone = new();
         // requirements_10Stone.Add(new()
