@@ -4,6 +4,7 @@
         <ItemGroup>
             <InputAssemblies Include="$(TargetPath)"/>
             <InputAssemblies Include="D:\Slava\Coding\Utils\ServerSync.dll"/>
+            <InputAssemblies Include="D:\Slava\Coding\Utils\ItemManager.dll"/>
             <InputAssemblies Include="D:\Slava\Coding\Utils\LocationManager.dll"/>
             <InputAssemblies Include="$(OutputPath)YamlDotNet.dll"/>
         </ItemGroup>

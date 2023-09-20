@@ -1,16 +1,7 @@
-﻿using System.Collections.Generic;
-using HarmonyLib;
-using ItemManager;
+﻿using HarmonyLib;
 using UnityEngine;
 using static MoreBiomes.Plugin;
-using static Heightmap;
-using static Heightmap.Biome;
-using static ZoneSystem;
-using static ZoneSystem.ZoneVegetation;
 using static ClutterSystem;
-using static ClutterSystem.Clutter;
-using static ClutterSystem.Quality;
-using static ClutterSystem.PatchData;
 using static MoreBiomes.ClutterExtention;
 using static MoreBiomes.Const;
 
@@ -19,11 +10,11 @@ namespace MoreBiomes;
 [HarmonyPatch]
 public class Grass
 {
-    private static ClutterSystem.Clutter instanced_heathgrass;
-    private static ClutterSystem.Clutter instanced_heathflowers;
-    private static ClutterSystem.Clutter instanced_vass;
+    private static Clutter instanced_heathgrass;
+    private static Clutter instanced_heathflowers;
+    private static Clutter instanced_vass;
 
-    [HarmonyPatch(typeof(ClutterSystem), nameof(ClutterSystem.Awake)), HarmonyPostfix]
+    [HarmonyPatch(typeof(ClutterSystem), nameof(ClutterSystem.Awake))] [HarmonyPostfix]
     public static void AddGrassPatch(ClutterSystem __instance)
     {
         instanced_heathgrass = __instance.m_clutter.Find(x => x.m_prefab.name == "instanced_heathgrass");
@@ -32,9 +23,9 @@ public class Grass
 
         #region Desert
 
-        __instance.m_clutter.Add(new()
+        __instance.m_clutter.Add(new Clutter
         {
-            m_biome = Const.Desert,
+            m_biome = Desert,
             m_prefab = bundleDesert.LoadAsset<GameObject>("instanced_grass_desert"),
             m_amount = instanced_heathgrass.m_amount,
             m_enabled = true,
@@ -64,9 +55,9 @@ public class Grass
             m_snapToWater = instanced_heathgrass.m_snapToWater
         });
 
-        __instance.m_clutter.Add(new()
+        __instance.m_clutter.Add(new Clutter
         {
-            m_biome = Const.Desert,
+            m_biome = Desert,
             m_prefab = bundleDesert.LoadAsset<GameObject>("instanced_seaweed"),
             m_amount = instanced_vass.m_amount,
             m_enabled = true,
@@ -98,9 +89,9 @@ public class Grass
 
         // for (int i = 0; i < 3; i++)
         // {
-        __instance.m_clutter.Add(new()
+        __instance.m_clutter.Add(new Clutter
         {
-            m_biome = Const.Desert,
+            m_biome = Desert,
             //m_prefab = bundleDesert.LoadAsset<GameObject>("instanced_plant_desert" + (i == 0 ? "" : $" {i}")),
             m_prefab = bundleDesert.LoadAsset<GameObject>("instanced_plant_desert"),
             m_amount = instanced_heathflowers.m_amount,
@@ -228,14 +219,14 @@ public class Grass
             .SetBiome(Jungle);
     }
 
-    private static ClutterExtention.MBClutter AddGrass(string name, string reference)
+    private static MBClutter AddGrass(string name, string reference)
     {
         return AddGrass(name, ClutterSystem.instance.m_clutter.Find(x => x.m_prefab.name == reference));
     }
 
     private static MBClutter AddGrass(string name, Clutter reference)
     {
-        var clutter = new Clutter()
+        var clutter = new Clutter
         {
             m_biome = reference.m_biome,
             m_prefab = bundleJungle.LoadAsset<GameObject>(name),

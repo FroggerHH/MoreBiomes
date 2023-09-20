@@ -2,19 +2,13 @@
 
 public static class ClutterExtention
 {
-    public static MBClutter ToMBClutter(this ClutterSystem.Clutter clutter)
-    {
-        return new MBClutter(clutter);
-    }
+    public static MBClutter ToMBClutter(this ClutterSystem.Clutter clutter) { return new MBClutter(clutter); }
 
     public class MBClutter
     {
-        public MBClutter(ClutterSystem.Clutter clutter)
-        {
-            this.clutter = clutter;
-        }
+        private readonly ClutterSystem.Clutter clutter;
 
-        private ClutterSystem.Clutter clutter;
+        public MBClutter(ClutterSystem.Clutter clutter) { this.clutter = clutter; }
 
         public MBClutter SetMinAlt(float value)
         {
@@ -45,6 +39,7 @@ public static class ClutterExtention
             clutter.m_biome = value;
             return this;
         }
+
         public MBClutter SetSnapToWater(bool value)
         {
             clutter.m_snapToWater = value;

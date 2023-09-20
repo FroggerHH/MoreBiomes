@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-using HarmonyLib;
+﻿using HarmonyLib;
 using ItemManager;
 using UnityEngine;
 using static MoreBiomes.Plugin;
-using static Heightmap;
-using static Heightmap.Biome;
 using static ZoneSystem;
-using static ZoneSystem.ZoneVegetation;
 
 namespace MoreBiomes;
 
 [HarmonyPatch]
 public class Vegetation
 {
-    [HarmonyPatch(typeof(ZoneSystem), nameof(ZoneSystem.Awake)), HarmonyPostfix]
+    [HarmonyPatch(typeof(ZoneSystem), nameof(ZoneSystem.Awake))] [HarmonyPostfix]
     public static void Patch(ZoneSystem __instance)
     {
         var Birch1 = __instance.m_vegetation.Find(x => x.m_prefab.name == "Birch1");
@@ -27,7 +23,7 @@ public class Vegetation
 
         #region Desert
 
-        __instance.m_vegetation.Add(new()
+        __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "PalmTree",
             m_biome = Const.Desert,
@@ -47,9 +43,9 @@ public class Vegetation
             m_minAltitude = 2
         });
         var randomVegetation = Random.Range(0, 100) > 85
-            ? (Random.Range(0, 100) > 45 ? Birch1 : Bush02_en)
+            ? Random.Range(0, 100) > 45 ? Birch1 : Bush02_en
             : RaspberryBush;
-        __instance.m_vegetation.Add(new()
+        __instance.m_vegetation.Add(new ZoneVegetation
         {
             //m_name = "DesertPlant" + (i == 0 ? "" : i),
             m_name = "DesertPlant",
@@ -71,10 +67,10 @@ public class Vegetation
             m_minAltitude = 2
         });
 
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             var randomWitheredTree = Random.Range(0, 100) > 45 ? Bush02_en : RaspberryBush;
-            __instance.m_vegetation.Add(new()
+            __instance.m_vegetation.Add(new ZoneVegetation
             {
                 m_name = "WitheredTree" + (i == 0 ? "" : i),
                 m_biome = Const.Desert,
@@ -95,7 +91,7 @@ public class Vegetation
             });
         }
 
-        __instance.m_vegetation.Add(new()
+        __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "Сactuse",
             m_biome = Const.Desert,
@@ -115,7 +111,7 @@ public class Vegetation
             m_minAltitude = 2
         });
 
-        __instance.m_vegetation.Add(new()
+        __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "LogDesert",
             m_biome = Const.Desert,
@@ -139,7 +135,7 @@ public class Vegetation
 
         #region Jungle
 
-        __instance.m_vegetation.Add(new()
+        __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "JungleStubbe",
             m_biome = Const.Jungle,
@@ -158,7 +154,7 @@ public class Vegetation
             m_chanceToUseGroundTilt = stubbe.m_chanceToUseGroundTilt,
             m_minAltitude = 2
         });
-        __instance.m_vegetation.Add(new()
+        __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "Jungle_Rafflesia",
             m_biome = Const.Jungle,
@@ -180,7 +176,7 @@ public class Vegetation
             m_scaleMin = 0.7f
         });
 
-        __instance.m_vegetation.Add(new()
+        __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "JungleBamboo",
             m_biome = Const.Jungle,
@@ -200,7 +196,7 @@ public class Vegetation
             m_minAltitude = 2,
             m_groundOffset = -5
         });
-        __instance.m_vegetation.Add(new()
+        __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "JungleBananaTree",
             m_biome = Const.Jungle,
