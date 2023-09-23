@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace TestGener;
+﻿namespace TestGener;
 
 [Serializable]
 public struct NoisePreset

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using TestGener;
-using UnityEngine;
+﻿using TestGener;
 
 public static class NoiseGenerator
 {
-    private static NoisePreset preset = NoisePreset.CreateDefaultInstance();
-    private static (float[,], Color[]) cathedNoiseMap;
     private const int textureSize = 2048;
     private const int pixelSize = 12;
+    private static NoisePreset preset = NoisePreset.CreateDefaultInstance();
+    private static (float[,], Color[]) cathedNoiseMap;
 
     public static float[,] GetNoiseMap()
     {
@@ -133,17 +131,17 @@ public static class NoiseGenerator
         return GetNoiseMap()[mapPos.x, mapPos.y] == 1 ? 1 : 0;
     }
 
-    public static int GetPixel(float x, float y) => GetPixel(new Vector3(x, 0, y));
+    public static int GetPixel(float x, float y) { return GetPixel(new Vector3(x, 0, y)); }
 
     internal static Vector2i WorldToMapPoint(Vector3 p)
     {
         var halfTextureSize = textureSize / 2;
-        float mx = p.x / pixelSize + halfTextureSize;
-        float my = p.z / pixelSize + halfTextureSize;
+        var mx = p.x / pixelSize + halfTextureSize;
+        var my = p.z / pixelSize + halfTextureSize;
 
         //mx /= textureSize;
         // my /= textureSize;
 
-        return new((int)mx, (int)my);
+        return new Vector2i((int)mx, (int)my);
     }
 }
