@@ -1,6 +1,4 @@
-﻿using HarmonyLib;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch]
 public class SpawnerPatch

@@ -1,9 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
-using static MoreBiomes.Const;
-using static Heightmap;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch] internal static class GenerateLandscape
 {
@@ -11,19 +6,15 @@ namespace MoreBiomes;
     public static void GetBiomeHeight(WorldGenerator __instance, Biome biome, float wx, float wy,
         ref float __result)
     {
-        if (biome is Desert)
+        __result = biome switch
         {
-            __result = GetDesertHeight(__instance, wx, wy) * 260f;
-            return;
-        }
-
-        if (biome is Jungle)
-        {
-            __result = GetJungleHeight(__instance, wx, wy) * 230f;
-            return;
-        }
-
-        if (biome is Canyon) __result = GetCanyonHeight(__instance, wx, wy) * 230f;
+            Desert => GetDesertHeight(__instance, wx, wy) * 260f,
+            Jungle => GetJungleHeight(__instance, wx, wy) * 230,
+            Canyon => GetCanyonHeight(__instance, wx, wy) * 230f,
+            Siberia_steppe => GetSiberiaHeight(__instance, wx, wy) * 200,
+            Siberia_snowy => GetSiberiaHeight(__instance, wx, wy) * 200,
+            _ => __result
+        };
     }
 
     public static float GetDesertHeight(WorldGenerator worldGenerator, float wx, float wy)
@@ -78,6 +69,35 @@ namespace MoreBiomes;
                Mathf.PerlinNoise(wx * 0.8f, wy * 0.8f) * (2.5f / 1000f);
     }
 
-    public static float GetCanyonHeight(WorldGenerator worldGenerator, float wx, float wy) =>
-        GetJungleHeight(worldGenerator, wx, wy);
+    public static float GetCanyonHeight(WorldGenerator worldGenerator, float wx, float wy)
+    {
+        return GetJungleHeight(worldGenerator, wx, wy);
+    }
+
+    public static float GetSiberiaHeight(WorldGenerator worldGenerator, float wx, float wy)
+    {
+        float wx1 = wx;
+        float wy1 = wy;
+        wx += 100000f;
+        wy += 100000f;
+
+
+        var height = siberiaBaseLandHeight;
+
+
+        var riversNoise1 = DUtils.PerlinNoise(wx * siberiaMod1_x, wy * siberiaMod1_y) * siberiaMod1;
+        var riversNoise2 = DUtils.PerlinNoise(wx * siberiaMod2_x, wy * siberiaMod2_y) * siberiaMod2;
+        var baseRivers = worldGenerator.AddRivers(wx1, wy1, height);
+        float rivers = baseRivers + riversNoise1 + riversNoise2;
+
+        return height + rivers;
+    }
+
+    static float siberiaBaseLandHeight = 0.09f;
+    static float siberiaMod1 = 0.01f;
+    static double siberiaMod1_x = 0.1;
+    static double siberiaMod1_y = 0.1;
+    static float siberiaMod2 = 3f / 1000f;
+    static double siberiaMod2_x = 0.4;
+    static double siberiaMod2_y = 0.4;
 }

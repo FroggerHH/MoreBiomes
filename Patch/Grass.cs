@@ -1,9 +1,5 @@
-﻿using HarmonyLib;
-using UnityEngine;
-using static MoreBiomes.Plugin;
-using static ClutterSystem;
+﻿using static ClutterSystem;
 using static MoreBiomes.ClutterExtention;
-using static MoreBiomes.Const;
 
 namespace MoreBiomes;
 

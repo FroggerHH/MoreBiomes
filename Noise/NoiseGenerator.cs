@@ -1,40 +1,48 @@
-﻿using TestGener;
+﻿namespace MoreBiomes.Noise;
 
 public static class NoiseGenerator
 {
     private const int textureSize = 2048;
+    private const int halfTextureSize = textureSize / 2;
     private const int pixelSize = 12;
     private static NoisePreset preset = NoisePreset.CreateDefaultInstance();
     private static (float[,], Color[]) cathedNoiseMap;
 
     public static float[,] GetNoiseMap()
     {
-        if (cathedNoiseMap.Item1 == null || cathedNoiseMap.Item2 == null)
-            CreateNoiseMap();
+        CheckCashedNoise();
         return cathedNoiseMap.Item1;
     }
-
-    /*public static Texture2D GetTexture()
-    {
-        if (cathedNoiseMap.Item1 == null || cathedNoiseMap.Item2 == null || cathedNoiseMap.Item3 == null)
-            CreateNoiseMap();
-        return cathedNoiseMap.Item2;
-    }*/
 
     public static Color[] GetColorMap()
     {
-        if (cathedNoiseMap.Item1 == null || cathedNoiseMap.Item2 == null || cathedNoiseMap.Item2 == null)
-            CreateNoiseMap();
+        CheckCashedNoise();
         return cathedNoiseMap.Item2;
     }
 
-    private static float[,] CreateNoiseMap()
+    private static Color[] GetColorMap(float[,] noiseMap)
     {
-        cathedNoiseMap.Item1 = CreateNoiseMap(preset);
-        //cathedNoiseMap.Item2 = ToTexture(cathedNoiseMap.Item1);
-        //Debug("CreateNoiseMap no arguments - ToTexture done");
-        cathedNoiseMap.Item2 = GetColorMap(cathedNoiseMap.Item1);
-        return cathedNoiseMap.Item1;
+        var width = noiseMap.GetLength(0);
+        var height = noiseMap.GetLength(1);
+        var colourMap = new Color[width * height];
+        for (var y = 0; y < height; y++)
+        for (var x = 0; x < width; x++)
+            colourMap[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x, y]);
+        return colourMap;
+    }
+
+    public static int GetPixel(Vector3 worldPoint)
+    {
+        var mapPos = WorldToMapPoint(worldPoint);
+        return GetNoiseMap()[mapPos.x, mapPos.y] == 1 ? 1 : 0;
+    }
+
+    public static int GetPixel(float x, float y) { return GetPixel(new Vector3(x, 0, y)); }
+
+    private static void CheckCashedNoise()
+    {
+        cathedNoiseMap.Item1 ??= CreateNoiseMap(preset);
+        cathedNoiseMap.Item2 ??= GetColorMap(cathedNoiseMap.Item1);
     }
 
     private static float[,] CreateNoiseMap(NoisePreset preset)
@@ -95,53 +103,8 @@ public static class NoiseGenerator
 
     public static void SetPreset(NoisePreset preset) { NoiseGenerator.preset = preset; }
 
-    /*private static Texture2D ToTexture(float[,] noiseMap)
+    private static Vector2i WorldToMapPoint(Vector3 p)
     {
-        Debug("ToTexture");
-        var width = noiseMap.GetLength(0);
-        var height = noiseMap.GetLength(1);
-
-        Debug("ToTexture creating texture");
-        var texture = new Texture2D(width, height);
-        texture.filterMode = FilterMode.Point;
-        Debug("ToTexture texture created");
-
-        var colourMap = GetColorMap(noiseMap);
-        Debug("ToTexture GetColorMap done");
-
-        texture.SetPixels(colourMap);
-        texture.Apply();
-        return texture;
-    }*/
-
-    private static Color[] GetColorMap(float[,] noiseMap)
-    {
-        var width = noiseMap.GetLength(0);
-        var height = noiseMap.GetLength(1);
-        var colourMap = new Color[width * height];
-        for (var y = 0; y < height; y++)
-        for (var x = 0; x < width; x++)
-            colourMap[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x, y]);
-        return colourMap;
-    }
-
-    public static int GetPixel(Vector3 worldPoint)
-    {
-        var mapPos = WorldToMapPoint(worldPoint);
-        return GetNoiseMap()[mapPos.x, mapPos.y] == 1 ? 1 : 0;
-    }
-
-    public static int GetPixel(float x, float y) { return GetPixel(new Vector3(x, 0, y)); }
-
-    internal static Vector2i WorldToMapPoint(Vector3 p)
-    {
-        var halfTextureSize = textureSize / 2;
-        var mx = p.x / pixelSize + halfTextureSize;
-        var my = p.z / pixelSize + halfTextureSize;
-
-        //mx /= textureSize;
-        // my /= textureSize;
-
-        return new Vector2i((int)mx, (int)my);
+        return new Vector2i((int)(p.x / pixelSize + halfTextureSize), (int)(p.z / pixelSize + halfTextureSize));
     }
 }

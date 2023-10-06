@@ -1,9 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
-using static MoreBiomes.Const;
-using static Heightmap;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch]
 internal static class BiomesColors
@@ -34,10 +29,16 @@ internal static class BiomesColors
                 __result = new Color(1, 0.61f, 0);
                 return;
             case Jungle:
-                __result = new Color(0f, 0.58f, 0);
+                __result = new Color(0.65f, 0.91f, 0.46f);
                 return;
             case Canyon:
-                __result = new Color(0.75f, 1f, 0.88f);
+                __result = new Color(0.86f, 0.86f, 0.34f);
+                return;
+            case Siberia_steppe:
+                __result = new Color(0.89f, 0.82f, 0.45f);
+                return;
+            case Siberia_snowy:
+                __result = new Color(0.87f, 1f, 1f);
                 return;
         }
     }

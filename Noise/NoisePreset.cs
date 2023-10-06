@@ -1,4 +1,4 @@
-﻿namespace TestGener;
+﻿namespace MoreBiomes.Noise;
 
 [Serializable]
 public struct NoisePreset

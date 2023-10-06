@@ -1,6 +1,4 @@
-﻿using HarmonyLib;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch(typeof(Pickable), nameof(Pickable.Awake))]
 public class PickablePatch

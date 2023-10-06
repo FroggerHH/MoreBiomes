@@ -1,11 +1,8 @@
-﻿using System.Linq;
-using BepInEx;
+﻿using BepInEx;
+using BepInEx.Configuration;
 using ItemManager;
 using LocalizationManager;
 using LocationManager;
-using UnityEngine;
-using static Heightmap;
-using static Extensions.Valheim.ModBase;
 
 namespace MoreBiomes;
 
@@ -19,13 +16,15 @@ internal class Plugin : BaseUnityPlugin
 
     internal static AssetBundle bundleDesert;
     internal static AssetBundle bundleJungle;
-
     private static readonly float[] biomeWeights = new float[30];
+
+  //  public static ConfigEntry<bool> advancedMapTooltip;
 
     private void Awake()
     {
         CreateMod(this, ModName, ModAuthor, ModVersion);
         SetupBiomeArrays();
+       // advancedMapTooltip = mod.config("General", "Advanced map tooltip", false, "");
 
         bundleDesert = PrefabManager.RegisterAssetBundle("desert");
         bundleJungle = PrefabManager.RegisterAssetBundle("jungle");
@@ -34,7 +33,7 @@ internal class Plugin : BaseUnityPlugin
 
         LocationManager.Location Bones = new(bundleDesert, "Bones")
         {
-            Biome = Const.Desert,
+            Biome = Desert,
             Rotation = Rotation.Random,
             PreferCenter = true,
             SpawnArea = BiomeArea.Everything,
@@ -48,7 +47,7 @@ internal class Plugin : BaseUnityPlugin
         };
         LocationManager.Location Oasis = new(bundleDesert, "Oasis")
         {
-            Biome = Const.Desert,
+            Biome = Desert,
             Rotation = Rotation.Fixed,
             PreferCenter = true,
             SnapToWater = false,
@@ -61,7 +60,7 @@ internal class Plugin : BaseUnityPlugin
         };
         LocationManager.Location ancienttemple = new(bundleJungle, "ancient-temple")
         {
-            Biome = Const.Jungle,
+            Biome = Jungle,
             Rotation = Rotation.Random,
             PreferCenter = true,
             SnapToWater = false,
@@ -74,7 +73,7 @@ internal class Plugin : BaseUnityPlugin
         };
         LocationManager.Location Columns_ruins = new(bundleJungle, "Columns_ruins")
         {
-            Biome = Const.Jungle,
+            Biome = Jungle,
             Rotation = Rotation.Fixed,
             PreferCenter = true,
             SpawnArea = BiomeArea.Everything,
@@ -88,7 +87,7 @@ internal class Plugin : BaseUnityPlugin
         };
         LocationManager.Location DesertRuins = new(bundleJungle, "DesertRuins")
         {
-            Biome = Const.Desert,
+            Biome = Desert,
             Rotation = Rotation.Fixed,
             PreferCenter = true,
             SpawnArea = BiomeArea.Everything,
@@ -111,9 +110,9 @@ internal class Plugin : BaseUnityPlugin
     public static void SetupBiomeArrays()
     {
         var indexToBiome = s_indexToBiome.ToList();
-        indexToBiome.Add(Const.Desert);
-        indexToBiome.Add(Const.Jungle);
-        indexToBiome.Add(Const.Canyon);
+        indexToBiome.Add(Desert);
+        indexToBiome.Add(Jungle);
+        indexToBiome.Add(Canyon);
         var indexToBiomeArray = indexToBiome.ToArray();
         unsafe
         {
@@ -128,8 +127,8 @@ internal class Plugin : BaseUnityPlugin
             }
         }
 
-        s_biomeToIndex.Add(Const.Desert, 10);
-        s_biomeToIndex.Add(Const.Jungle, 11);
-        s_biomeToIndex.Add(Const.Canyon, 12);
+        s_biomeToIndex.Add(Desert, 10);
+        s_biomeToIndex.Add(Jungle, 11);
+        s_biomeToIndex.Add(Canyon, 12);
     }
 }

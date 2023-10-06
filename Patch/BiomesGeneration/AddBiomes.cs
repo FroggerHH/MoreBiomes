@@ -1,8 +1,4 @@
-﻿using HarmonyLib;
-using TestGener;
-using UnityEngine;
-using static MoreBiomes.Const;
-using static Heightmap;
+﻿using MoreBiomes.Noise;
 
 namespace MoreBiomes;
 
@@ -16,11 +12,11 @@ namespace MoreBiomes;
         if (baseHeight <= 0.02) return;
 
         var magnitude = new Vector2(wx, wy).magnitude;
-        var worldAngle = __instance.WorldAngle(wx, wy) * 90f;
+        var worldAngle = __instance.WorldAngle(wx, wy) * 100f;
 
         var basePerlinNoise = Mathf.PerlinNoise(
-            ((__instance.m_offset1 + wx) * (1f / 1000f)),
-            ((__instance.m_offset1 + wy) * (1f / 1000f)));
+            (__instance.m_offset1 + wx) * (1f / 1000f),
+            (__instance.m_offset1 + wy) * (1f / 1000f));
 
 
         var noise = NoiseGenerator.GetPixel(wx, wy);
@@ -50,5 +46,23 @@ namespace MoreBiomes;
             __result = Canyon;
             return;
         }
+
+
+        var magnitudePlus4000 = new Vector2(wx, wy + 4000).magnitude;
+        var magnitudeMinus4000 = new Vector2(wx, wy - 4000).magnitude;
+        if (basePerlinNoise > 0.4f &&
+            noise == 1 &&
+            magnitudePlus4000 > 12000f + worldAngle &&
+            magnitudePlus4000 < 14000f)
+        {
+            __result = Siberia_snowy;
+            return;
+        }
+
+        if (basePerlinNoise > 0.4f &&
+            noise == 1 &&
+            magnitudeMinus4000 > 12000f + worldAngle &&
+            magnitudeMinus4000 < 14000f)
+            __result = Siberia_steppe;
     }
 }

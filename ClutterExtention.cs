@@ -34,7 +34,7 @@ public static class ClutterExtention
             return this;
         }
 
-        public MBClutter SetBiome(Heightmap.Biome value)
+        public MBClutter SetBiome(Biome value)
         {
             clutter.m_biome = value;
             return this;

@@ -1,8 +1,4 @@
-﻿using HarmonyLib;
-using static Heightmap;
-using static ZoneSystem;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch]
 internal static class MustSpawn_StartTemple

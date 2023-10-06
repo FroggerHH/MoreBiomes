@@ -1,8 +1,4 @@
-﻿using HarmonyLib;
-using ItemManager;
-using UnityEngine;
-using static MoreBiomes.Plugin;
-using static ZoneSystem;
+﻿using ItemManager;
 
 namespace MoreBiomes;
 
@@ -26,7 +22,7 @@ public class Vegetation
         __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "PalmTree",
-            m_biome = Const.Desert,
+            m_biome = Desert,
             m_enable = true,
             m_prefab = PrefabManager.RegisterPrefab(bundleDesert, "PalmTree"),
             m_inForest = true,
@@ -49,7 +45,7 @@ public class Vegetation
         {
             //m_name = "DesertPlant" + (i == 0 ? "" : i),
             m_name = "DesertPlant",
-            m_biome = Const.Desert,
+            m_biome = Desert,
             m_enable = true,
             //m_prefab = PrefabManager.RegisterPrefab(bundleDesert, "DesertPlant" + (i == 0 ? "" : $" {i}")),
             m_prefab = PrefabManager.RegisterPrefab(bundleDesert, "DesertPlant"),
@@ -73,7 +69,7 @@ public class Vegetation
             __instance.m_vegetation.Add(new ZoneVegetation
             {
                 m_name = "WitheredTree" + (i == 0 ? "" : i),
-                m_biome = Const.Desert,
+                m_biome = Desert,
                 m_enable = true,
                 m_prefab = PrefabManager.RegisterPrefab(bundleDesert, "WitheredTree" + (i == 0 ? "" : $" {i}")),
                 m_inForest = true,
@@ -94,7 +90,7 @@ public class Vegetation
         __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "Сactuse",
-            m_biome = Const.Desert,
+            m_biome = Desert,
             m_enable = true,
             m_prefab = PrefabManager.RegisterPrefab(bundleDesert, "Сactuse"),
             m_inForest = true,
@@ -114,7 +110,7 @@ public class Vegetation
         __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "LogDesert",
-            m_biome = Const.Desert,
+            m_biome = Desert,
             m_enable = true,
             m_prefab = PrefabManager.RegisterPrefab(bundleDesert, "LogDesert"),
             m_inForest = true,
@@ -138,7 +134,7 @@ public class Vegetation
         __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "JungleStubbe",
-            m_biome = Const.Jungle,
+            m_biome = Jungle,
             m_enable = true,
             m_prefab = PrefabManager.RegisterPrefab(bundleJungle, "JungleStubbe"),
             m_inForest = true,
@@ -157,7 +153,7 @@ public class Vegetation
         __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "Jungle_Rafflesia",
-            m_biome = Const.Jungle,
+            m_biome = Jungle,
             m_enable = true,
             m_prefab = PrefabManager.RegisterPrefab(bundleJungle, "Jungle_Rafflesia"),
             m_inForest = true,
@@ -179,7 +175,7 @@ public class Vegetation
         __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "JungleBamboo",
-            m_biome = Const.Jungle,
+            m_biome = Jungle,
             m_enable = true,
             m_prefab = PrefabManager.RegisterPrefab(bundleJungle, "JungleBamboo"),
             m_inForest = true,
@@ -199,7 +195,7 @@ public class Vegetation
         __instance.m_vegetation.Add(new ZoneVegetation
         {
             m_name = "JungleBananaTree",
-            m_biome = Const.Jungle,
+            m_biome = Jungle,
             m_enable = true,
             m_prefab = PrefabManager.RegisterPrefab(bundleJungle, "JungleBananaTree"),
             m_inForest = true,

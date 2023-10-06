@@ -1,7 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch(typeof(ZNetScene), nameof(ZNetScene.Awake))]
 public class ChestPatch

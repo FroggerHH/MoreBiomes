@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Configuration;
-using HarmonyLib;
 using JetBrains.Annotations;
-using UnityEngine;
 using YamlDotNet.Serialization;
+using Debug = UnityEngine.Debug;
 
 namespace LocalizationManager;
 
@@ -125,7 +121,7 @@ public class Localizer
             var key = Path.GetFileNameWithoutExtension(file).Split('.')[1];
             if (localizationFiles.ContainsKey(key))
                 // Handle duplicate key
-                UnityEngine.Debug.LogWarning(
+                Debug.LogWarning(
                     $"Duplicate key {key} found for {plugin.Info.Metadata.Name}. The duplicate file found at {file} will be skipped.");
             else
                 localizationFiles[key] = file;

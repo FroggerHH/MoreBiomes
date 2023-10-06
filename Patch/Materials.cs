@@ -1,9 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
-using static MoreBiomes.Plugin;
-using static Extensions.Valheim.ModBase;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch]
 public class Materials

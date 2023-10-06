@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Extensions;
-using HarmonyLib;
-using UnityEngine;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch]
 public class Digs
@@ -18,7 +13,7 @@ public class Digs
         if (!mods.TryGetValue(__instance.gameObject.GetPrefabName(), out var def))
             mods.Add(__instance.gameObject.GetPrefabName(), __instance.m_spawnOnPlaced);
 
-        if (biome == Const.Desert)
+        if (biome == Desert)
             __instance.m_spawnOnPlaced = sand;
         else __instance.m_spawnOnPlaced = def;
     }

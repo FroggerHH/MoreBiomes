@@ -53,11 +53,11 @@
         <Reference Include="ItemManager">
             <HintPath>..\Utils\ItemManager.dll</HintPath>
         </Reference>
+        <Reference Include="JFUtils">
+            <HintPath>..\Utils\JFUtils.dll</HintPath>
+        </Reference>
         <Reference Include="LocationManager">
             <HintPath>..\Utils\LocationManager.dll</HintPath>
-        </Reference>
-        <Reference Include="ServerSync">
-            <HintPath>..\Utils\ServerSync.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
@@ -109,32 +109,7 @@
     <ItemGroup>
         <Compile Include="ClutterExtention.cs" />
         <Compile Include="Const.cs" />
-        <Compile Include="Extensions\EnumerableExtension.cs" />
-        <Compile Include="Extensions\GameObjectExtension.cs" />
-        <Compile Include="Extensions\GlobalUsings.cs" />
-        <Compile Include="Extensions\MonoBehaviourExtension.cs" />
-        <Compile Include="Extensions\ObjectExtension.cs" />
-        <Compile Include="Extensions\RectTransformExtension.cs" />
-        <Compile Include="Extensions\RendererExtension.cs" />
-        <Compile Include="Extensions\SimpleVector2.cs" />
-        <Compile Include="Extensions\SimpleVector3.cs" />
-        <Compile Include="Extensions\StringExtension.cs" />
-        <Compile Include="Extensions\TransformExtension.cs" />
-        <Compile Include="Extensions\Utilities.cs" />
-        <Compile Include="Extensions\Valheim\BaseMod.cs" />
-        <Compile Include="Extensions\Valheim\BiomeExtension.cs" />
-        <Compile Include="Extensions\Valheim\InventoryExtension.cs" />
-        <Compile Include="Extensions\Valheim\ItemDropExtension.cs" />
-        <Compile Include="Extensions\Valheim\MinimapExtension.cs" />
-        <Compile Include="Extensions\Valheim\ObjectDBExtension.cs" />
-        <Compile Include="Extensions\Valheim\RecipeExtension.cs" />
-        <Compile Include="Extensions\Valheim\StringExtension.cs" />
-        <Compile Include="Extensions\Valheim\WithPatch\RegisterObjectsInstances.cs" />
-        <Compile Include="Extensions\Valheim\WithPatch\UpdateConfigOnGameStart.cs" />
-        <Compile Include="Extensions\Valheim\ZNetSceneExtension.cs" />
-        <Compile Include="Extensions\Valheim\ZoneSystemExtension.cs" />
-        <Compile Include="Extensions\VectorExtension.cs" />
-        <Compile Include="Extensions\Weather.cs" />
+        <Compile Include="GlobalUsings.cs" />
         <Compile Include="LocalizationManager.cs" />
         <Compile Include="Noise\NoiseGenerator.cs" />
         <Compile Include="Noise\NoisePreset.cs" />

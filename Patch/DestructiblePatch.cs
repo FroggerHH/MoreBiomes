@@ -1,7 +1,4 @@
-﻿using HarmonyLib;
-using static Extensions.Valheim.ModBase;
-
-namespace MoreBiomes;
+﻿namespace MoreBiomes;
 
 [HarmonyPatch] [HarmonyWrapSafe]
 public class DestructiblePatch
